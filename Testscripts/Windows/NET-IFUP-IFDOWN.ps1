@@ -37,6 +37,10 @@ function Main {
         else {
             $newIp = $allVmData.PublicIP
         }
+        if (!$newIp) {
+            Start-Sleep -Seconds 30
+            continue
+        }
         $state = Run-LinuxCmd -ip $newIp -port $VMPort -username $VMUserName -password $VMPassword "cat state.txt" -ignoreLinuxExitCode:$true
         Write-LogInfo "Current status:$state"
         Start-Sleep -Seconds 30
